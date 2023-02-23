@@ -1,22 +1,19 @@
-console.log("hello");
-const http = require("http");
+const express = require("express");
+const app = express();
 
-const server = http.createServer((req, res) => {
-  const url = req.url;
-  console.log(url);
-  if (url === "/") {
-    res.writeHead(200, { "content-type": "text/html" });
-    res.write("<h1> home page <h1>");
-    res.end();
-  } else if (url == "/about") {
-    res.writeHead(200, { "content-type": "text/html" });
-    res.write("<h1> about page <h1>");
-    res.end();
-  } else {
-    res.writeHead(404, { "content-type": "text/html" });
-    res.write("<h1> page does not exist <h1>");
-    res.end();
-  }
+app.get("/", (req, res) => {
+  console.log("user hit resource");
+  res.status(200).send("Home Page");
 });
 
-server.listen(6313);
+app.get("/about", (req, res) => {
+  res.status(200).send("About Page");
+});
+
+app.all("*", (req, res) => {
+  res.status(404).send("<h1> resource not found </h1>");
+});
+
+app.listen(6313, () => {
+  console.log("server listening to port 6313");
+});
