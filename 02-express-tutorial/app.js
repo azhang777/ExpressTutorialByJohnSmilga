@@ -8,7 +8,7 @@ app.use(express.static("./methods-public"));
 app.use(express.urlencoded({ extended: false }));
 //parse json
 app.use(express.json());
-//route
+//routes
 app.use("/api/people", people);
 app.use("/login", auth);
 
